@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: white;
+}
+td{
+    width: 100px;
+    height: 100px;
+    background-color: black;
+    color: white;
+    border: 0;
+    text-align: center;
+    font-size: 48px;
+    
+}
+h1{
+    margin-right: auto;
+    margin-left: auto;
+    width: 30%;
+    text-align: center;
+    padding: 50px;
+    font-size: 48px;
+}
+table{
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 50px;
+    
+}
+#edit{
+    margin-right: auto;
+    margin-left: auto;
+    display: inline-block;
+}
