@@ -5,16 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel =stylesheet type = "text/css" href = "index.css" media="screen">
     <title>Data List</title>
-    <script src = "index.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
 </head>
 
 <body>
-   
-    <h1>Tic Tac Toe</h1> 
-   
-    <table>
+    <h1>TIC TAC TOE</h1>
+    <section>
+    
+        <div class="entity">
+            <h3>Player 1 (O)</h3>
+            <div class="inputs">
+                <input type="text" Placeholder = "Name" id = "Username1"> 
+                <input type="button" value="GO" id = "buttongo1" >
+            </div>
+            <div id="scoreboard1">
+                <h4>Score : <span id = "score1"></span></h4>
+                
+            </div>
+        </div>
+        <div class="entity">
+            <h3>Player 2 (X)</h3>
+            <div class="inputs">
+                <input type="text" Placeholder = "Name" id = "Username2"> 
+                <input type="button" value="GO" id = "buttongo2">
+            </div>
+            <div id="scoreboard2">
+                <h4>Score : <span id = "score2"></span></h4>
+                
+            </div>
+        </div>
+    </section>
+    <div class="buttonsgroup">
+    
+        <button class = "buttongame" id ="buttonstart">Start</button>
+        <button class = "buttongame" id = "buttonreset" >Reset Game</button>
+        <button class = "buttongame" id = "buttonresetplayers">Reset Players</button>
+
+    </div>
+    <table id="tictable">
         <tr>
             <td id = "1" onclick = "update(this.id)"> </td>
             <td id = "2" onclick = "update(this.id)"> </td>
@@ -35,4 +64,6 @@
         
     </table>
 </body>
+
+<script src = "index.js"></script>
 </html>
