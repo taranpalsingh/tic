@@ -10,6 +10,8 @@ $(document).ready(function(){
     
     $("#buttonstart").click(function(){
         $("#tictable").show();
+        $("#player1").css("background-color", "#27AE60");
+        $("#player2").css("background-color", "#58D68D");
     }); 
     $("#buttonreset").click(function(){
         reset();
@@ -141,7 +143,8 @@ var arrP2 = [];  // "X"
 var arr = [];   
 function update(cellid){  //      "O"
     if(turn == 0){
-
+        $("#player2").css("background-color", "#27AE60");
+        $("#player1").css("background-color", "#58D68D");
         if(!(arr.includes(cellid))){
             document.getElementById(cellid).innerHTML = "O";
 
@@ -187,7 +190,8 @@ function update(cellid){  //      "O"
     }
 
     else if(turn == 1){
-
+        $("#player1").css("background-color", "#27AE60");
+        $("#player2").css("background-color", "#58D68D");
         if(!arr.includes(cellid)){
             document.getElementById(cellid).innerHTML = "X";
             arr.push(cellid);
@@ -239,7 +243,8 @@ function reset(){
     for(var i =1;i<=9;i++){
         document.getElementById(i).innerHTML = "";
     }
-    
+    $("#player1").css("background-color", "#27AE60");
+    $("#player2").css("background-color", "#58D68D");
 }
 
 function putthis(myOBJ,id){

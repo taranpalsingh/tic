@@ -2,8 +2,11 @@
     margin: 0;
     padding: 0;
 }
+html{
+    background-color: #58D68D;
+}
 body{
-    background-color: white;
+/*    background-color: white;*/
 }
 section{
     
@@ -14,6 +17,7 @@ section{
     justify-content: space-between;
 }
 .entity{
+    padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -69,7 +73,7 @@ h1{
     font-size: 36px;
 }
 table{
- margin: 50px auto;
+ margin: 20px auto;
     
 }
 #edit{
