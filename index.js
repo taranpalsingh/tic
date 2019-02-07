@@ -23,9 +23,8 @@ $(document).ready(function(){
     console.log(obj);
     
     $("#buttongo1").click(function(){
-        console.log("here");
        
-        name1 = document.getElementById("Username1").value;
+        name1 = (document.getElementById("Username1").value).toLowerCase();
         var flag = 0;
         for(var i=0; i<obj.length; i++){
             
@@ -41,7 +40,6 @@ $(document).ready(function(){
         }
         if(flag == 0){
             console.log("not matched");
-//            id1 = postnew(name1);
             Username = name1;
             Score = 0;
             score1 = Score;
@@ -49,24 +47,44 @@ $(document).ready(function(){
             $("#scoreboard1").show();
             var myOBJ = {Username,Score}; 
             $.ajax({
+                async: false,
                 type: 'POST',
                 url: "http://localhost:50883/api/Users",
                 dataType: "JSON",
                 data :myOBJ,
                 success: function(res){
+                    console.log("sending new data");    
+                }
+            });       
+            $.ajax({
+                async: false,
+                type: 'GET',
+                url: "http://localhost:50883/api/Users",
+                dataType: "JSON",
+                success: function(res){  
+                    obj = res;
+                    for(var i=0; i<obj.length; i++){
+                        if(obj[i].Username == name1){
+                            console.log(obj[i]);
+                            console.log("matched new user");
+                            id1 = obj[i].id;
+                        }
                     }
+                }
             });
-            getall();                            ////////////////////////////////////////////////////////////////////
-            id1 = getthis(name1);
-             setTimeout(function(){console.log("new id is "+ id1);},100);
-//            console.log("new id is "+ id1);
+            console.log("new id is "+ id1);
         }
         
     $("#buttongo2").click(function(){
-        
-        name2 = document.getElementById("Username2").value;
+        var flag = 0;
+        name2 = (document.getElementById("Username2").value).toLowerCase();
+        if(name1 == name2 ){
+            window.location.reload();
+            alert("Names must be different");
+        }
         for(var i=0; i<obj.length; i++){
             if(obj[i].Username == name2){
+                flag =1;
                 console.log(obj[i]);
                 console.log("matched");
                 $("#scoreboard2").show();
@@ -75,7 +93,43 @@ $(document).ready(function(){
                 document.getElementById("score2").innerHTML = obj[i].Score;
                 console.log(obj[i].Score);
             }
-    }
+        }
+        if(flag == 0){
+            console.log("not matched");
+            Username = name2;
+            Score = 0;
+            score2 = Score;
+            document.getElementById("score2").innerHTML = Score;
+            $("#scoreboard2").show();
+            var myOBJ = {Username,Score}; 
+            $.ajax({
+                async: false,
+                type: 'POST',
+                url: "http://localhost:50883/api/Users",
+                dataType: "JSON",
+                data :myOBJ,
+                success: function(res){
+                    console.log("sending new data");    
+                }
+            });       
+            $.ajax({
+                async: false,
+                type: 'GET',
+                url: "http://localhost:50883/api/Users",
+                dataType: "JSON",
+                success: function(res){  
+                    obj = res;
+                    for(var i=0; i<obj.length; i++){
+                        if(obj[i].Username == name2){
+                            console.log(obj[i]);
+                            console.log("matched new user");
+                            id2 = obj[i].id;
+                        }
+                    }
+                }
+            });
+            console.log("new id is "+ id2);
+        }
     });
 });
 });
@@ -106,6 +160,8 @@ function update(cellid){  //      "O"
              {
                     score1 = score1 + 10;
                     score2 = score2 - 5;
+                    document.getElementById("score2").innerHTML = score2;
+                    document.getElementById("score1").innerHTML = score1;
                     Username = name1;
                     Score = score1;
                     id = id1;
@@ -117,27 +173,9 @@ function update(cellid){  //      "O"
                     var myOBJ2 = {id, Username, Score};
                     console.log(myOBJ2);
                  
-                    $.ajax({
-                        type: 'PUT',
-                        url: "http://localhost:50883/api/Users/"+ id1,
-                        dataType: "JSON",
-                        data :myOBJ1,
-                        success: function(res){
-                            console.log("sent 1");
-                       }
+                    putthis(myOBJ1,id1);
+                    putthis(myOBJ2,id2);
 
-                    });
-
-                    $.ajax({
-                        type: 'PUT',
-                        url: "http://localhost:50883/api/Users/"+ id2,
-                        dataType: "JSON",
-                        data :myOBJ2,
-                        success: function(res){
-                            console.log("sent 2");
-                       }
-
-                    });
                  setTimeout(function(){alert( name1 + " WON ")},10);
 
             }
@@ -167,6 +205,8 @@ function update(cellid){  //      "O"
                 
                     score1 = score1 - 5;
                     score2 = score2 + 10;
+                    document.getElementById("score2").innerHTML = score2;
+                    document.getElementById("score1").innerHTML = score1;
                     Username = name1;
                     Score = score1;
                     id = id1;
@@ -178,41 +218,41 @@ function update(cellid){  //      "O"
                     var myOBJ2 = {id, Username, Score};
                     console.log(myOBJ2);
                  
-                    $.ajax({
-                        type: 'PUT',
-                        url: "http://localhost:50883/api/Users/"+ id1,
-                        dataType: "JSON",
-                        data :myOBJ1,
-                        success: function(res){
-                            console.log("sent 1");
-                       }
-
-                    });
-
-                    $.ajax({
-                        type: 'PUT',
-                        url: "http://localhost:50883/api/Users/"+ id2,
-                        dataType: "JSON",
-                        data :myOBJ2,
-                        success: function(res){
-                            console.log("sent 2");
-                       }
-
-                    });
-                    setTimeout(function(){alert( name2 + " WON ")},10);
-
+                    putthis(myOBJ1,id1);
+                    putthis(myOBJ2,id2);
                     
+                    setTimeout(function(){alert( name2 + " WON ")},10);
 
             }
             else if(arr.length == 9){
                 setTimeout(function(){alert("------------DRAW------------")},10);
-
             }
         }
-}    
+}
     console.log(arr);
 }
+function reset(){
+    arrP1.length = 0;
+    arrP2.length = 0;
+    arr.length = 0;
+    turn = 0;
+    for(var i =1;i<=9;i++){
+        document.getElementById(i).innerHTML = "";
+    }
+    
+}
 
+function putthis(myOBJ,id){
+    $.ajax({
+        type: 'PUT',
+        url: "http://localhost:50883/api/Users/"+ id,
+        dataType: "JSON",
+        data :myOBJ,
+        success: function(res){
+            console.log("sent");
+       }
+    });
+}
 
 function getall(){
     $.ajax({
@@ -234,16 +274,5 @@ function getthis(name){
                 console.log("got new id " + obj[i].id);
                 return obj[i].id;
             }
-    }
-}
-function reset(){
-    arrP1.length = 0;
-    console.log(arrP1);
-    arrP2.length = 0;
-    arr.length = 0;
-    turn = 0;
-    for(var i =1;i<=9;i++){
-        document.getElementById(i).innerHTML = "";
-
     }
 }
